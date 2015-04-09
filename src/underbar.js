@@ -309,6 +309,19 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var alreadyComputed = {}, result;
+
+    return function() {
+      for(var prop in alreadyComputed){
+         if(String(arguments[0]) === prop){
+            return alreadyComputed[prop];
+          }
+        }
+
+      result = func.apply(this, arguments);
+      alreadyComputed[String(arguments[0])] = result;
+      return result;
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
