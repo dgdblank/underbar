@@ -332,7 +332,7 @@
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
     var args = Array.prototype.slice.call(arguments, 2);
-    
+
     return setTimeout(function() { return func.apply(this, args)}, wait);
   };
 
@@ -350,17 +350,17 @@
   _.shuffle = function(array) {
     var result = array.slice();
     var newIdx;
-    var next, old;
+    var next;
     
-    for(var idx = 0; idx < result.length; idx++){
+    for (var idx = 0; idx < result.length; idx++) {
       newIdx = Math.floor(Math.random() * result.length);
-      old = result[idx];
       next = result[newIdx];
+      result[newIdx] = result[idx];
       result[idx] = next;
-      result[newIdx] = old;
     }
 
-    return result; 
+    return (String(array) === String(result)) ? shuffle(result) : result;
+
   };
 
 
