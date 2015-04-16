@@ -430,12 +430,30 @@
 
   // Takes an arbitrary number of arrays and produces an array that contains
   // every item shared between all the passed-in arrays.
-  _.intersection = function() {
+   _.intersection = function(array) {
+    // Doesn't work for more than two arrays **
+     var args = Array.prototype.slice.call(arguments);
+     var first = args.shift();
+     var second = args.shift();
+     var result = [];
+
+     result = _.filter(first, function(n){
+      return _.indexOf(second, n) != -1;
+     })
+
+     return first.length === 1 ? array : result;
   };
 
   // Take the difference between one array and a number of other arrays.
   // Only the elements present in just the first array will remain.
   _.difference = function(array) {
+    var args = Array.prototype.slice.call(arguments);
+    var first = args.shift()
+    var rest = _.flatten(args);
+
+    return _.filter(first, function(value){
+      return !_.contains(rest, value);
+    });
   };
 
   // Returns a function, that, when invoked, will only be triggered at most once
